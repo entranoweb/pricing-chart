@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, ErrorBar } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ErrorBar, ResponsiveContainer } from 'recharts';
 
 const data = [
   { name: 'Bland AI', cost: 839, error: [0, 0], info: '(+$299/mo subscription)' },
@@ -17,21 +17,26 @@ const formatTooltip = (value, name, props) => {
 
 const PricingChart = () => {
   return (
-    <div className="w-full h-96">
-      <h2 className="text-2xl font-bold mb-4 text-center">Synthiq: AI Platform Pricing Comparison</h2>
-      <p className="text-center mb-4">Estimated Cost for 100 Hours of Usage</p>
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-          <XAxis dataKey="name" />
-          <YAxis label={{ value: 'Cost ($)', angle: -90, position: 'insideLeft' }} />
-          <Tooltip formatter={formatTooltip} />
-          <Legend />
-          <Bar dataKey="cost" fill="#0080FF">
-            <ErrorBar dataKey="error" width={4} strokeWidth={2} />
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-      <p className="text-sm text-center mt-4">
+    <div style={{width: '100%', height: '100vh', padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+      <h2 style={{fontSize: '24px', fontWeight: 'bold', marginBottom: '10px'}}>Synthiq: AI Platform Pricing Comparison</h2>
+      <p style={{fontSize: '16px', marginBottom: '20px'}}>Estimated Cost for 100 Hours of Usage</p>
+      <div style={{width: '100%', height: '400px'}}>
+        <ResponsiveContainer>
+          <BarChart
+            data={data}
+            margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+          >
+            <XAxis dataKey="name" />
+            <YAxis label={{ value: 'Cost ($)', angle: -90, position: 'insideLeft', offset: -5 }} />
+            <Tooltip formatter={formatTooltip} />
+            <Legend verticalAlign="top" height={36}/>
+            <Bar dataKey="cost" fill="#0080FF">
+              <ErrorBar dataKey="error" width={4} strokeWidth={2} />
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+      <p style={{fontSize: '14px', marginTop: '20px', textAlign: 'center', maxWidth: '600px'}}>
         Note: Costs shown are for 100 hours of usage. Additional fees apply as indicated. Analysis by Synthiq.
       </p>
     </div>
